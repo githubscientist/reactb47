@@ -20,29 +20,39 @@
 
 // export default App;
 
-// day2 - React
+// import React from 'react';
+
+// function Hello(props) {
+//   // console.log(props);
+//   return (
+//     <div>
+//       <p>Hello {props.name}, you are { props.age } years old</p>
+//     </div>
+//   )
+// }
+
+// function App() {
+
+//   const age = 10;
+
+//   return (
+//     <div>
+//       <h1>Greetings</h1>
+//       <Hello name='Sathish' age={ 10 + 20 } />
+//       <Hello name='Krish' age={ age } />
+//     </div>
+//   )
+// }
+
+// export default App;
+
+// day3 - React
 
 import React from 'react';
 
-function Hello(props) {
-  // console.log(props);
-  return (
-    <div>
-      <p>Hello {props.name}, you are { props.age } years old</p>
-    </div>
-  )
-}
-
 function App() {
-
-  const age = 10;
-
   return (
-    <div>
-      <h1>Greetings</h1>
-      <Hello name='Sathish' age={ 10 + 20 } />
-      <Hello name='Krish' age={ age } />
-    </div>
+    <div>App</div>
   )
 }
 
