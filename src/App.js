@@ -20,6 +20,8 @@
 
 // export default App;
 
+// day2 - React
+
 import React from 'react';
 
 function Hello(props) {
