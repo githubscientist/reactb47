@@ -48,11 +48,150 @@
 
 // day3 - React
 
-import React from 'react';
+// Working with array lists
 
-function App() {
+// import React from 'react'; // not necessary from React 17
+
+// function App(props) {
+
+//   const { notes } = props;
+
+//   // console.log(notes);
+
+//   return (
+//     <div>
+//       <h1>Notes</h1>
+//       <ul>
+//         <li>{notes[0].content}</li>
+//         <li>{notes[1].content}</li>
+//         <li>{notes[2].content}</li>
+//         <li>{notes[3].content}</li>
+//         <li>{notes[4].content}</li>
+//       </ul>
+//     </div>
+//   )
+// }
+
+// export default App;
+
+// import React from 'react'; // not necessary from React 17
+
+// function App(props) {
+
+//   const { notes } = props;
+
+//   return (
+//     <div>
+//       <h1>Notes</h1>
+//       <ul>
+//         {notes.map(note =>
+//           <li key={ note.id }>{note.content}</li>
+//         )}
+//       </ul>
+//     </div>
+//   )
+// }
+
+// export default App;
+
+// import React from 'react'; // not necessary from React 17
+
+// function Note({ note }) {
+//   // ★
+//   if (note.important) {
+//     return (
+//       <li>{note.content} ★</li>
+//     )
+//   } 
+//   return (
+//     <li>{note.content}</li>
+//   )
+// }
+
+// function App({notes}) {
+
+//   return (
+//     <div>
+//       <h1>Notes</h1>
+//       <ul>
+//         {notes.map(note =>
+//           <Note key={note.id} note={ note } />
+//         )}
+//       </ul>
+//     </div>
+//   )
+// }
+
+// export default App;
+
+// import React from 'react'; // not necessary from React 17
+
+// function Note({ note }) {
+//   // ★
+//   // if (note.important) {
+//   //   return (
+//   //     <li>{note.content} ★</li>
+//   //   )
+//   // }
+//   // return (
+//   //   <li>{note.content}</li>
+//   // )
+  
+//   return (
+//     <li>
+//       {note.important ? note.content + ' ★' : note.content}
+//     </li>
+//   )
+// }
+
+// function App({notes}) {
+
+//   return (
+//     <div>
+//       <h1>Notes</h1>
+//       <ul>
+//         {notes.map(note =>
+//           <Note key={note.id} note={ note } />
+//         )}
+//       </ul>
+//     </div>
+//   )
+// }
+
+// export default App;
+
+import React from 'react'; // not necessary from React 17
+
+function Note({ note }) {
+  // ★
+  // if (note.important) {
+  //   return (
+  //     <li>{note.content} ★</li>
+  //   )
+  // }
+  // return (
+  //   <li>{note.content}</li>
+  // )
+  
   return (
-    <div>App</div>
+    <li>
+      {/* {note.important ? note.content + ' ★' : note.content} */}
+      {note.content} {note.important && ' ★' }
+    </li>
+  )
+}
+
+function App({notes}) {
+
+  return (
+    <div>
+      <h1>Notes</h1>
+      <ul>
+        {notes.map(note =>
+          <Note key={note.id} note={ note } />
+        )}
+      </ul>
+    </div>
   )
 }
 
