@@ -275,40 +275,62 @@
 
 // export default App;
 
-import React from 'react';
+// import React from 'react';
 
-function Note({ note }) {
+// function Note({ note }) {
   
-  return (
-    <li>
-      {note.content} {note.important && ' ★' }
-    </li>
-  )
-}
+//   return (
+//     <li>
+//       {note.content} {note.important && ' ★' }
+//     </li>
+//   )
+// }
 
-function App({ notes }) {
+// function App({ notes }) {
   
-  const addNote = (event) => {
-    event.preventDefault();
-    // console.log(event);
-    console.log('button clicked');
+//   const addNote = (event) => {
+//     event.preventDefault();
+//     // console.log(event);
+//     console.log('button clicked');
+//   }
+
+//   return (
+//     <div>
+//       <h1>Notes</h1>
+//       <ul>
+//         {notes.map(note =>
+//           <Note key={note.id} note={ note } />
+//         )}
+//       </ul>
+
+//       <form>
+//         <input />
+//         <button onClick={addNote}>Save Note</button>
+//       </form>
+//     </div>
+//   )
+// }
+
+// export default App;
+
+// Functional Component
+// import React from 'react';
+
+// function App() {
+//   return (
+//     <div>Hello, World!</div>
+//   )
+// }
+
+// export default App;
+
+import { Component } from "react";
+
+// Class Component
+class App extends Component {
+  render() {
+    return <div>Hello, World!</div>
   }
-
-  return (
-    <div>
-      <h1>Notes</h1>
-      <ul>
-        {notes.map(note =>
-          <Note key={note.id} note={ note } />
-        )}
-      </ul>
-
-      <form>
-        <input />
-        <button onClick={addNote}>Save Note</button>
-      </form>
-    </div>
-  )
 }
 
 export default App;
