@@ -420,44 +420,59 @@
 
 // stateful components
 
+// import React, { Component } from 'react';
+
+// export class App extends Component {
+
+//   constructor(props) {
+//     super(props);
+
+//     this.state = {
+//       count: 0,
+//     };
+//   }
+
+//   handlePlusClick = () => {
+//     this.setState((prevState) => ({
+//       count: prevState.count + 1,
+//     }));
+//   }
+
+//   handleMinusClick = () => {
+//     this.setState((prevState) => ({
+//       count: prevState.count - 1,
+//     }));
+//   }
+
+//   handleZeroClick = () => {
+//     this.setState((prevState) => ({
+//       count: 0,
+//     }));
+//   }
+
+
+//   render() {
+//     return (
+//       <div>
+//         <p>Count: {this.state.count} </p>
+//         <button onClick={this.handlePlusClick}>plus</button>
+//         <button onClick={this.handleMinusClick}>minus</button>
+//         <button onClick={this.handleZeroClick}>zero</button>
+//       </div>
+//     )
+//   }
+// }
+
+// export default App;
+
 import React, { Component } from 'react';
+import Hello from './components/Hello';
 
 export class App extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      count: 0,
-    };
-  }
-
-  handlePlusClick = () => {
-    this.setState((prevState) => ({
-      count: prevState.count + 1,
-    }));
-  }
-
-  handleMinusClick = () => {
-    this.setState((prevState) => ({
-      count: prevState.count - 1,
-    }));
-  }
-
-  handleZeroClick = () => {
-    this.setState((prevState) => ({
-      count: 0,
-    }));
-  }
-
-
   render() {
     return (
       <div>
-        <p>Count: {this.state.count} </p>
-        <button onClick={this.handlePlusClick}>plus</button>
-        <button onClick={this.handleMinusClick}>minus</button>
-        <button onClick={this.handleZeroClick}>zero</button>
+        <Hello />
       </div>
     )
   }
