@@ -605,28 +605,107 @@
 
 // export default App;
 
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
+
+// function App() {
+
+//   const [count, setCount] = useState(0);
+
+
+//   useEffect(() => {
+//     document.title = `Count: ${count}`;
+//   }, [count]);
+
+//   const incrementHandler = () => {
+//     setCount(count + 1);
+//     // document.title = `Count: ${count}`;
+//   }
+
+//   // document.title = `Count: ${count}`;
+
+//   return (
+//     <div>
+//       <h1>Document Title Updater</h1>
+//       <button onClick={incrementHandler}>Increment</button>
+//     </div>
+//   )
+// }
+
+// export default App;
+
+// props drilling: parent component that passes props to the nested child components
+// import React from 'react';
+
+// function GrandChildComponent({ parentData }) {
+//   console.log(`from grand child component: ${parentData}`);
+//   return (
+//     <div>
+//       <h3>Grand Child Component</h3>
+//     </div>
+//   )
+// }
+
+// // child component
+// function ChildComponent({ parentData }) {
+
+//   console.log(`from child component: ${parentData}`);
+
+//   return (
+//     <div>
+//       <h2>Child Component</h2>
+//       <GrandChildComponent parentData={parentData} />
+//     </div>
+//   )
+// }
+
+// // parent component
+// function App() {
+
+//   const parentData = 'Hello from Parent';
+
+//   return (
+//     <div>
+//       <h1>Parent Component</h1>
+//       <ChildComponent parentData={ parentData } />
+//     </div>
+//   )
+// }
+
+// export default App;
+
+// Passing data from the child component to the parent component
+import React, { useState } from 'react';
+
+function ChildComponent({onMessage}) {
+
+  const message = 'Hello from Child';
+
+  const handleClick = () => {
+    onMessage(message);
+  }
+
+  return (
+    <>
+      <h2>Child Component</h2>
+      <button onClick={handleClick}>Send Message to the Parent</button>
+    </>
+  )
+}
 
 function App() {
 
-  const [count, setCount] = useState(0);
+  // set a state to handle child data
+  const [message, setMessage] = useState('');
 
-  
-  useEffect(() => {
-    document.title = `Count: ${count}`;
-  }, [count]);
-
-  const incrementHandler = () => {
-    setCount(count + 1);
-    // document.title = `Count: ${count}`;
+  const handleMessage = (data) => {
+    setMessage(data);
   }
-
-  // document.title = `Count: ${count}`;
 
   return (
     <div>
-      <h1>Document Title Updater</h1>
-      <button onClick={incrementHandler}>Increment</button>
+      <h2>Parent Component</h2>
+      <p>Message from the Child Component: { message }</p>
+      <ChildComponent onMessage={ handleMessage } />
     </div>
   )
 }
