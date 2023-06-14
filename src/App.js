@@ -360,28 +360,58 @@
 
 // passing props in class component
 
-import { Component } from "react";
+// import { Component } from "react";
 
-class Hello extends Component {
+// class Hello extends Component {
 
-  render() {
+//   render() {
 
-    // console.log(this.props);
-    const { name } = this.props;
+//     // console.log(this.props);
+//     const { name } = this.props;
 
-    return (
-      // <div>Hello, {this.props.name}!</div>
-      <div>Hello, {name}!</div>
-    )
+//     return (
+//       // <div>Hello, {this.props.name}!</div>
+//       <div>Hello, {name}!</div>
+//     )
+//   }
+// }
+
+// class App extends Component {
+//   render() {
+//     return (
+//       <div>
+//         <Hello name={ 'Krish' } />
+//       </div>
+//     )
+//   }
+// }
+
+// export default App;
+
+import React, { Component } from 'react';
+
+export class App extends Component {
+
+  // componentDidMount: called after the component has been rendered to the DOM
+  componentDidMount() {
+    console.log('component mounted');
   }
-}
 
-class App extends Component {
+  componentDidUpdate() {
+    // invoked after the component has been updated in the DOM
+    // state or prop changes
+  }
+
+  componentWillUnmount() {
+    // invoked just before the component is removed from the DOM
+    // releasing memory or resources
+    // detaching the events
+    // cancelling timers
+  }
+
   render() {
     return (
-      <div>
-        <Hello name={ 'Krish' } />
-      </div>
+      <div>Hello, World!</div>
     )
   }
 }
