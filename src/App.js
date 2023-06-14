@@ -388,30 +388,77 @@
 
 // export default App;
 
+// import React, { Component } from 'react';
+
+// export class App extends Component {
+
+//   // componentDidMount: called after the component has been rendered to the DOM
+//   componentDidMount() {
+//     console.log('component mounted');
+//   }
+
+//   componentDidUpdate() {
+//     // invoked after the component has been updated in the DOM
+//     // state or prop changes
+//   }
+
+//   componentWillUnmount() {
+//     // invoked just before the component is removed from the DOM
+//     // releasing memory or resources
+//     // detaching the events
+//     // cancelling timers
+//   }
+
+//   render() {
+//     return (
+//       <div>Hello, World!</div>
+//     )
+//   }
+// }
+
+// export default App;
+
+// stateful components
+
 import React, { Component } from 'react';
 
 export class App extends Component {
 
-  // componentDidMount: called after the component has been rendered to the DOM
-  componentDidMount() {
-    console.log('component mounted');
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      count: 0,
+    };
   }
 
-  componentDidUpdate() {
-    // invoked after the component has been updated in the DOM
-    // state or prop changes
+  handlePlusClick = () => {
+    this.setState((prevState) => ({
+      count: prevState.count + 1,
+    }));
   }
 
-  componentWillUnmount() {
-    // invoked just before the component is removed from the DOM
-    // releasing memory or resources
-    // detaching the events
-    // cancelling timers
+  handleMinusClick = () => {
+    this.setState((prevState) => ({
+      count: prevState.count - 1,
+    }));
   }
+
+  handleZeroClick = () => {
+    this.setState((prevState) => ({
+      count: 0,
+    }));
+  }
+
 
   render() {
     return (
-      <div>Hello, World!</div>
+      <div>
+        <p>Count: {this.state.count} </p>
+        <button onClick={this.handlePlusClick}>plus</button>
+        <button onClick={this.handleMinusClick}>minus</button>
+        <button onClick={this.handleZeroClick}>zero</button>
+      </div>
     )
   }
 }
