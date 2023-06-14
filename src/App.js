@@ -465,17 +465,30 @@
 
 // export default App;
 
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
+// import Hello from './components/Hello';
+
+// export class App extends Component {
+//   render() {
+//     return (
+//       <div>
+//         <Hello />
+//       </div>
+//     )
+//   }
+// }
+
+// export default App;
+
+import React from 'react';
 import Hello from './components/Hello';
 
-export class App extends Component {
-  render() {
-    return (
-      <div>
-        <Hello />
-      </div>
-    )
-  }
+function App() {
+  return (
+    <div>
+      <Hello name={'Krish'} />
+    </div>
+  )
 }
 
 export default App;
