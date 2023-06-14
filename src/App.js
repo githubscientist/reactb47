@@ -324,12 +324,65 @@
 
 // export default App;
 
+// import { Component } from "react";
+
+// // Class Component
+// class App extends Component {
+//   render() {
+//     return <div>Hello, World!</div>
+//   }
+// }
+
+// export default App;
+
+// passing props in functional component
+
+// import React from 'react';
+
+// function Hello(props) {
+//   // console.log(props);
+
+//   return (
+//     <div>Hello, { props.name }!</div>
+//   )
+// }
+
+// function App() {
+//   return (
+//     <div>
+//       <Hello name={ 'Krish' } />
+//     </div>
+//   )
+// }
+
+// export default App;
+
+
+// passing props in class component
+
 import { Component } from "react";
 
-// Class Component
+class Hello extends Component {
+
+  render() {
+
+    // console.log(this.props);
+    const { name } = this.props;
+
+    return (
+      // <div>Hello, {this.props.name}!</div>
+      <div>Hello, {name}!</div>
+    )
+  }
+}
+
 class App extends Component {
   render() {
-    return <div>Hello, World!</div>
+    return (
+      <div>
+        <Hello name={ 'Krish' } />
+      </div>
+    )
   }
 }
 
