@@ -465,17 +465,170 @@
 
 // export default App;
 
-import React, { Component } from 'react';
-import Hello from './components/Hello';
+// import React, { Component } from 'react';
+// import Hello from './components/Hello';
 
-export class App extends Component {
-  render() {
-    return (
-      <div>
-        <Hello />
-      </div>
-    )
+// export class App extends Component {
+//   render() {
+//     return (
+//       <div>
+//         <Hello />
+//       </div>
+//     )
+//   }
+// }
+
+// export default App;
+
+// useState hook
+// functional - stateful component
+// state changes triggers component re-rendering
+
+// import React, { useState } from 'react';
+
+// function App() {
+
+//   const [counter, setCounter] = useState(0);
+
+//   setTimeout(
+//     () => setCounter(counter + 1), 1000
+//   );
+
+//   console.log('rendering...', counter);
+
+//   return (
+//     <div>{counter}</div>
+//   )
+// }
+
+// export default App;
+
+// import React, { useState } from 'react';
+
+// const Display = (props) => {
+//   return (
+//     <div>{props.counter}</div>
+//   )
+// }
+
+// function Button(props) {
+//   return (
+//     <button onClick={props.handleClick}>{props.text}</button>
+//   )
+// }
+
+// function App() {
+//   const [counter, setCounter] = useState(0);
+
+//   const handlePlusClick = () => setCounter(counter + 1);
+
+//   const handleMinusClick = () => setCounter(counter - 1);
+
+//   const handleZeroClick = () => setCounter(0);
+
+//   return (
+//     <div>
+//       {/* display a counter state */}
+//       <Display counter={counter} />
+//       <Button text='plus' handleClick={ handlePlusClick } />
+//       <Button text='minus' handleClick={ handleMinusClick } />
+//       <Button text='zero' handleClick={ handleZeroClick } />
+//     </div>
+//   )
+// }
+
+// export default App;
+
+// import React, { useState } from 'react';
+
+// function App() {
+
+//   const [isButtonEnabled, setIsButtonEnabled] = useState({
+//     button1: false,
+//     button2: false,
+//   });
+//   const [cartData, setCartData] = useState([]);
+
+//   const handleClick = (buttonName) => {
+//     setCartData([...cartData, 12]);
+//     setIsButtonEnabled((prevState) => ({
+//       ...prevState,
+//       [buttonName]: true
+//     }));
+//   }
+
+//   console.log(cartData);
+
+//   return (
+//     <div>
+//       <input />
+//       {/* <button >Toggle</button> */}
+//       <button disabled={isButtonEnabled.button1} onClick={() => handleClick('button1')}>Button</button>
+//       <button disabled={ isButtonEnabled.button2 } onClick={() => handleClick('button2')}>Button</button>
+//     </div>
+//   )
+// }
+
+// export default App;
+
+// import React, { useEffect, useState } from 'react';
+
+// function App() {
+//   const [data, setData] = useState(null);
+
+//   // runs only one time
+//   useEffect(() => {
+//     fetch('https://jsonplaceholder.typicode.com/posts')
+//       .then((response) => response.json())
+//       .then((data) => setData(data));
+//   }, []);
+
+//   // console.log(data);
+
+//   return (
+//     <div>
+//       <h1>API DATA</h1>
+//       {
+//         data ? (
+//           <ul>
+//           {
+//             data.map(item => <li key={item.id}>{ item.title }</li>)
+//           }
+//         </ul>
+//         ) : (
+//             <p>Loading data...</p>
+//         )
+//       }
+//     </div>
+//   )
+// }
+
+// export default App;
+
+import React, { useEffect, useState } from 'react';
+
+function App() {
+
+  const [count, setCount] = useState(0);
+
+  
+  useEffect(() => {
+    document.title = `Count: ${count}`;
+  }, [count]);
+
+  const incrementHandler = () => {
+    setCount(count + 1);
+    // document.title = `Count: ${count}`;
   }
+
+  // document.title = `Count: ${count}`;
+
+  return (
+    <div>
+      <h1>Document Title Updater</h1>
+      <button onClick={incrementHandler}>Increment</button>
+    </div>
+  )
 }
 
 export default App;
