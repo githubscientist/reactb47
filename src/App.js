@@ -1,5 +1,6 @@
 // without React Router
 import React, { useState } from 'react';
+import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
 function Home() {
   return (
@@ -27,37 +28,24 @@ function Users() {
 
 function App() {
 
-  const [page, setPage] = useState('home');
-
-  const content = () => {
-    if (page == 'home') {
-      return <Home />;
-    } else if (page == 'notes') {
-      return <Notes />;
-    } else if (page == 'users') {
-      return <Users />;
-    }
-  }
-
-  const toPage = (page) => (event) => {
-    event.preventDefault();
-    setPage(page);
-  }
-
   const padding = {
     padding: 10
   };
 
   return (
-    <div>
+    <Router>
       <div>
-        <a href='' style={padding} onClick={toPage('home')}>home</a>
-        <a href='' style={padding} onClick={toPage('notes')}>notes</a>
-        <a href='' style={padding} onClick={toPage('users')}>users</a>
+        <Link to='/' style={padding}>home</Link>
+        <Link to='/notes' style={padding}>notes</Link>
+        <Link to='/users' style={padding}>users</Link>
       </div>
 
-      { content() }
-    </div>
+      <Routes>
+        <Route path='/users' element={ <Users /> } />
+        <Route path='/notes' element={ <Notes /> } />
+        <Route path='/' element={ <Home /> } />
+      </Routes>
+    </Router>
   )
 }
 
