@@ -1,45 +1,29 @@
-import React, { createContext, useContext, useState } from 'react';
+/*
+  Session task – profile name changes
 
-// create a context
-const MessageContext = createContext();
-const ChildMessageContext = createContext();
+  Implement a React component that allows users to change their profile name using the Context API. 
+  - the component should consist of two parts: a parent component called App and
+  - a child component called Profile.
 
-function GrandChildComponent() {
-  const message = useContext(ChildMessageContext);
-  return (
-    <div>
-      <h3>GrandChildComponent</h3>
-      <p>{ message }</p>
-    </div>
-  )
-}
+  The App component should:
+    - Import necessary dependencies from the React library
+    - Create a context object using the createContext function from React.
+    - Define a state variable called profileName using the useState hook and set its initial value to an empty string.
+    - Wrap the Profile component with the context provider component, passing the profileName state and its corresponding setter function as the vallue prop.
 
-function ChildComponent() {
+  The Profile component should:
+    - Import necessary dependencies from the React library
+    - Use the useContext hook to access the profileName state variable and its setter function from the context.
+    - Render an input field where users can enter their profile name, with its value set to the profileName state variable.
+    - Add an onChange event handler to the input field that updates the profileName state variable with the entered value using the setter function.
+    - Make sure to export the App component as the default import.
+*/
 
-  // use the context data
-  const message = useContext(MessageContext);
-  const childMessage = 'hello from child';
-
-  return (
-    <div>
-      <h2>Child Component</h2>
-      <p>{message}</p>
-      <ChildMessageContext.Provider value={childMessage}>
-        <GrandChildComponent />
-      </ChildMessageContext.Provider>
-    </div>
-  )
-}
+import React from 'react';
 
 function App() {
-  const [message, setMessage] = useState('Hello from App');
   return (
-    <div>
-      <h1>Parent Component</h1>
-      <MessageContext.Provider value={message}>
-        <ChildComponent />
-      </MessageContext.Provider>
-    </div>
+    <div>App</div>
   )
 }
 
