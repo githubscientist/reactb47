@@ -1,92 +1,127 @@
-import React, { useState } from 'react';
-import './App.css';
+// A Simple Note taking Application
+import React, { useEffect, useRef, useState } from 'react';
 
-function Button({value, onClick}) {
+function Note({note}) {
   return (
-    <button onClick={onClick} className='square'>{ value }</button>
+    <li>{ note.content }</li>
   )
 }
 
-function App() {
+function App(props) {
+  
+  // define a state
+  const [notes, setNotes] = useState([]);
+  const [newNoteContent, setNewNoteContent] = useState('');
+  const [newNoteImportant, setNewNoteImportant] = useState('');
+  const [showStatus, setShowStatus] = useState('all');
 
-  const [squares, setSquares] = useState(Array(9).fill(null));
-  const [xIsNext, setXIsNext] = useState(true);
+  // get the data
+  useEffect(() => {
+    setNotes(props.notes);
+  }, []);
 
-  function handleClick(i) {
+  // create a reference for the first input text box
+  const newNoteContentRef = useRef(null);
 
-    // if the value of the button i is set already to a not null value
-    // we should allow setting a new value
-    if (squares[i] || calculateWinner(squares)) {
-      return;
+
+  // define the addNote method
+  let addNote = (event) => {
+    event.preventDefault();
+    
+    // create a new object
+    let noteObject = {
+      id: notes.length + 1,
+      content: newNoteContent,
+      important: newNoteImportant==='true',
     }
 
-    // get the copy of the existing array
-    let nextSquares = squares.slice();
+    // add the new object to the notes state
+    setNotes(notes.concat(noteObject));
 
-    if (xIsNext) {
-      nextSquares[i] = 'X';
-    } else {
-      nextSquares[i] = 'O';
+    // console.log(noteObject);
+
+    // clear the input text box
+    setNewNoteContent('');
+    setNewNoteImportant('');
+    newNoteContentRef.current.focus();
+  }
+
+  let handleNoteChange = (event) => {
+    setNewNoteContent(event.target.value);
+  }
+
+  let handleSelectChange = (event) => {
+    setNewNoteImportant(event.target.value);
+  }
+
+  let handleStatusChange = (event) => {
+    setShowStatus(event.target.value);
+    // console.log(event.target.value);
+  }
+
+  let filterNotes = (notes, status) => {
+    switch (status) {
+      case 'all':
+        return notes;
+      case 'imp':
+        return notes.filter(note => note.important === true);
+      case 'nonimp':
+        return notes.filter(note => note.important === false);
     }
-
-    setSquares(nextSquares);
-    setXIsNext(!xIsNext);
   }
 
-  function calculateWinner(squares) {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5], 
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 6]
-    ];
-
-    for (let i = 0; i < lines.length; i++){
-      const [a, b, c] = lines[i];
-      if (squares[a] && squares[a] == squares[b] && squares[c] == squares[a]) {
-        return squares[a];
-      }
-    }
-    return null;
-  }
-
-
-  const winner = calculateWinner(squares);
-  let status;
-  if (winner) {
-    status = 'Winner: ' + winner;
-  } else {
-    status = 'Next Player: ' + (xIsNext ? 'X' : 'O');
-  }
+  const notesFiltered = filterNotes(notes, showStatus);
 
   return (
     <div>
-      <h1>Tic Tac Toe</h1>
-      <div>
-        {status}
-      </div>
-      <br></br>
-      <div className='row'>
-        <Button value={squares[0]} onClick={ () => handleClick(0) } />
-        <Button value={squares[1]} onClick={ () => handleClick(1) } />
-        <Button value={squares[2]} onClick={ () => handleClick(2) } />
-      </div>
+      <h1>Notes</h1>
 
-      <div className='row'>
-        <Button value={squares[3]} onClick={ () => handleClick(3) } />
-        <Button value={squares[4]} onClick={ () => handleClick(4) } />
-        <Button value={squares[5]} onClick={ () => handleClick(5) } />
-      </div>
+      <label>
+        <input type='radio' name='filter' value="all" checked={ showStatus === 'all' } onChange={handleStatusChange} />
+        Show All Notes
+      </label>
 
-      <div className='row'>
-        <Button value={squares[6]} onClick={ () => handleClick(6) } />
-        <Button value={squares[7]} onClick={ () => handleClick(7) } />
-        <Button value={squares[8]} onClick={ () => handleClick(8) } />
-      </div>
+      <label>
+        <input type='radio' name='filter' value="imp" checked={ showStatus === 'imp' } onChange={handleStatusChange} />
+        Show Important Notes
+      </label>
+
+      <label>
+        <input type='radio' name='filter' value="nonimp" checked={ showStatus === 'nonimp' } onChange={handleStatusChange} />
+        Show Non-Important Notes
+      </label>
+
+      <ul>
+        {notesFiltered.map(note => 
+          <Note key={note.id} note={note} />
+        )}
+      </ul>
+
+      {/* add a simple form for adding notes */}
+      <form onSubmit={addNote}>
+        <input
+          value={newNoteContent}
+          onChange={handleNoteChange}
+          placeholder='type a note...' 
+          ref={newNoteContentRef}
+          /> <br /><br />
+        {/* <input
+          type='text'
+          placeholder='enter true or false'
+          value={newNoteImportant}
+          onChange={(e) => setNewNoteImportant(e.target.value)} /> */}
+        <label form='dropdownNoteImportant'>Is Important: </label>
+        <select
+          id='dropdownNoteImportant'
+          onChange={handleSelectChange}
+          value={newNoteImportant}>
+          <option>--Select--</option>
+          <option>true</option>
+          <option>false</option>
+        </select>
+        <br /><br />
+        <button type='submit'>Add New Note</button>
+      </form>
     </div>
   )
 }
