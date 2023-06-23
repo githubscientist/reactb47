@@ -1,4 +1,5 @@
 // A Simple Note taking Application
+import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 
 function Note({note}) {
@@ -7,7 +8,7 @@ function Note({note}) {
   )
 }
 
-function App(props) {
+function App() {
   
   // define a state
   const [notes, setNotes] = useState([]);
@@ -15,14 +16,15 @@ function App(props) {
   const [newNoteImportant, setNewNoteImportant] = useState('');
   const [showStatus, setShowStatus] = useState('all');
 
-  // get the data
+  // runs always
   useEffect(() => {
-    setNotes(props.notes);
-  }, []);
+    axios
+      .get('http://localhost:3001/notes/')
+      .then(response => setNotes(response.data));
+  });
 
   // create a reference for the first input text box
   const newNoteContentRef = useRef(null);
-
 
   // define the addNote method
   let addNote = (event) => {
@@ -36,7 +38,12 @@ function App(props) {
     }
 
     // add the new object to the notes state
-    setNotes(notes.concat(noteObject));
+    // setNotes(notes.concat(noteObject));
+
+    // send the record to the json server
+    axios
+      .post('http://localhost:3001/notes/', noteObject)
+      .then(response => console.log(response));
 
     // console.log(noteObject);
 
