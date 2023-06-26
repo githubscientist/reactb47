@@ -73,6 +73,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/edit' element={<EditNote />} />
         <Route path='/delete' element={<DeleteNote />} />
+        <Route path='/read/edit/:id' element={<EditNote />} />
       </Routes>
     </Router>
   )

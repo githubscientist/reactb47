@@ -1,37 +1,37 @@
 {
   "notes": [
     {
-      "id": 3,
-      "content": "Conditional Rendering",
-      "important": true
+      "content": "Conditional Notes",
+      "important": false,
+      "id": 1
     },
     {
-      "id": 5,
+      "id": 2,
       "content": "Props Vs State",
       "important": false
     },
     {
-      "id": 6,
+      "id": 3,
       "content": "Javascript",
       "important": true
     },
     {
-      "id": 7,
+      "id": 4,
       "content": "HTML",
       "important": false
     },
     {
-      "id": 8,
+      "id": 5,
       "content": "CSS",
       "important": true
     },
     {
-      "id": 9,
+      "id": 6,
       "content": "Axios",
       "important": true
     },
     {
-      "id": 10,
+      "id": 7,
       "content": "Json-Server",
       "important": false
     }

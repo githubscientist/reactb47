@@ -1,8 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function EditNote() {
-
+    const { id } = useParams();
     const [notes, setNotes] = useState([]);
     const [selectedId, setSelectedId] = useState('');
     const [note, setNote] = useState(null);
@@ -14,19 +15,25 @@ function EditNote() {
         fetchNotes();
     }, []);
 
-    useEffect(() => {
-        const selectedNote = notes.find((note) => note.id == selectedId);
-        if (selectedNote) {
-            setNote(selectedNote);
-            setContent(selectedNote.content);
-            setImportant(selectedNote.important);
-        }
-    }, [selectedId, notes]);
+    // useEffect(() => {
+    //     const selectedNote = notes.find((note) => note.id == selectedId);
+    //     if (selectedNote) {
+    //         setNote(selectedNote);
+    //         setContent(selectedNote.content);
+    //         setImportant(selectedNote.important);
+    //     }
+    // }, [selectedId, notes]);
 
     const fetchNotes = async () => {
-        const response = await axios.get('http://localhost:3001/notes/');
-        // console.log(response.data);
-        setNotes(response.data);
+        try {
+            const response = await axios.get(`http://localhost:3001/notes/${id}`);
+            // console.log(response.data);
+            // setNotes(response.data);
+            setContent(response.data.content);
+            setImportant(response.data.important);
+        } catch (error) {
+            console.error('Error fetching note:', error);
+        }
     }
 
     const handleSelectChange = (event) => {
@@ -38,7 +45,7 @@ function EditNote() {
         event.preventDefault();
 
         try {
-            await axios.put(`http://localhost:3001/notes/${selectedId}`, {
+            await axios.put(`http://localhost:3001/notes/${id}`, {
                 ...note,
                 content,
                 important: important == 'true'
@@ -51,17 +58,8 @@ function EditNote() {
   return (
       <div>
           <h1>Edit Note</h1>
-          <select onChange={handleSelectChange} value={selectedId}>
-              <option>Select a note</option>
-              {
-                  notes.map((note) => (
-                      <option key={note.id}>{note.id}</option>
-                  ))
-              }
-          </select>
-          <br /><br />
           {
-              selectedId && (
+            (
                 <form onSubmit={handleSubmit}>
                     <input value={content} onChange={(event) => setContent(event.target.value)}
                     placeholder='type a note...' 
