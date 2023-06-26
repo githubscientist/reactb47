@@ -1,23 +1,8 @@
 {
   "notes": [
     {
-      "id": 1,
-      "content": "Working with Lists and Arrays",
-      "important": true
-    },
-    {
-      "id": 2,
-      "content": "Usage of keys",
-      "important": false
-    },
-    {
       "id": 3,
       "content": "Conditional Rendering",
-      "important": true
-    },
-    {
-      "id": 4,
-      "content": "Handling Events",
       "important": true
     },
     {
@@ -49,11 +34,6 @@
       "id": 10,
       "content": "Json-Server",
       "important": false
-    },
-    {
-      "id": 11,
-      "content": "Apple",
-      "important": true
     }
   ]
 }

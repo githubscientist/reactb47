@@ -5,6 +5,7 @@ import ReadNotes from './components/ReadNotes';
 import { Link, Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import EditNote from './components/EditNote';
+import DeleteNote from './components/DeleteNote';
 
 function App() {
   
@@ -62,7 +63,8 @@ function App() {
         <Link style={padding} to="/">Home</Link>
         <Link style={padding} to="/read">Read Notes</Link>
         <Link style={padding} to="/create">Create Notes</Link>
-        <Link style={padding} to="/edit">Edit Notes</Link>
+        <Link style={padding} to="/edit">Edit Note</Link>
+        <Link style={padding} to="/delete">Delete Note</Link>
       </div>
 
       <Routes>
@@ -70,6 +72,7 @@ function App() {
         <Route path='/create' element={<CreateNote addNote={addNote} newNoteContent={newNoteContent} handleNoteChange={handleNoteChange} newNoteContentRef={newNoteContentRef} handleSelectChange={handleSelectChange} newNoteImportant={newNoteImportant} />} />
         <Route path='/' element={<Home />} />
         <Route path='/edit' element={<EditNote />} />
+        <Route path='/delete' element={<DeleteNote />} />
       </Routes>
     </Router>
   )
