@@ -1,61 +1,86 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-function UpdateForm() {
-    return (
-        <div>
-          <form>
-            <input
-            placeholder='type a note...' 
-            /> <br /><br />
-            
-            <label form='dropdownNoteImportant'>Is Important: </label>
-            <select
-            id='dropdownNoteImportant'>
-            <option>--Select--</option>
-            <option>true</option>
-            <option>false</option>
-            </select>
-            <br /><br />
-            <button type='submit'>Update Note</button>
-        </form>
-    </div>
-    )
-}
-
 function EditNote() {
-    const [options, setOptions] = useState([]);
-    const [selectedOption, setSelectedOption] = useState('');
 
-    // get the id's from backend
+    const [notes, setNotes] = useState([]);
+    const [selectedId, setSelectedId] = useState('');
+    const [note, setNote] = useState(null);
+    const [content, setContent] = useState('');
+    const [important, setImportant] = useState(false);
+
+    // get all the id's and load them to the drop down
     useEffect(() => {
-        axios
-            .get('http://localhost:3001/notes/')
-            .then(response => setOptions(response.data));
+        fetchNotes();
     }, []);
 
-    let selectHandler = (event) => {
-        setSelectedOption(event.target.value);
+    useEffect(() => {
+        const selectedNote = notes.find((note) => note.id == selectedId);
+        if (selectedNote) {
+            setNote(selectedNote);
+            setContent(selectedNote.content);
+            setImportant(selectedNote.important);
+        }
+    }, [selectedId, notes]);
+
+    const fetchNotes = async () => {
+        const response = await axios.get('http://localhost:3001/notes/');
+        // console.log(response.data);
+        setNotes(response.data);
     }
 
-    return (
-        <div>
-            <h1>Edit Notes</h1>
+    const handleSelectChange = (event) => {
+        const id = parseInt(event.target.value);
+        setSelectedId(id);
+    }
 
-            <label>
-                Select an ID to Edit 
-                <select onChange={selectHandler} value={selectedOption}>
-                    <option value=''>Select an Option</option>
-                    {
-                        options.map(option => (
-                            <option key={option.id}>{option.id}</option>
-                        ))
-                    }
-                </select>  
-            </label>
-            <br /><br />
-            {selectedOption && <UpdateForm />}
-      </div>
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        try {
+            await axios.put(`http://localhost:3001/notes/${selectedId}`, {
+                ...note,
+                content,
+                important: important == 'true'
+            });
+        } catch (error) {
+            console.error('Error updating note:', error);
+        }
+    }
+
+  return (
+      <div>
+          <h1>Edit Note</h1>
+          <select onChange={handleSelectChange} value={selectedId}>
+              <option>Select a note</option>
+              {
+                  notes.map((note) => (
+                      <option key={note.id}>{note.id}</option>
+                  ))
+              }
+          </select>
+          <br /><br />
+          {
+              selectedId && (
+                <form onSubmit={handleSubmit}>
+                    <input value={content} onChange={(event) => setContent(event.target.value)}
+                    placeholder='type a note...' 
+                    /> <br /><br />
+                    
+                      <label>Is Important:
+                        <select id='drop' value={important} onChange={(event) => setImportant(event.target.value)}>
+                            <option>--Select--</option>
+                            <option>true</option>
+                            <option>false</option>
+                        </select>
+                      </label>
+                    
+                    <br /><br />
+                    <button type='submit'>Update Note</button>
+                </form>
+              )
+          }
+    </div>
   )
 }
 

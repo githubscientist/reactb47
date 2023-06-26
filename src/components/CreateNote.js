@@ -12,7 +12,7 @@ function CreateNote({addNote, newNoteContent, handleNoteChange, newNoteContentRe
             ref={newNoteContentRef}
             /> <br /><br />
             
-            <label form='dropdownNoteImportant'>Is Important: </label>
+            <label for='dropdownNoteImportant'>Is Important: </label>
             <select
             id='dropdownNoteImportant'
             onChange={handleSelectChange}
