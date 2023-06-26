@@ -14,11 +14,22 @@ function App(props) {
   const [newNoteContent, setNewNoteContent] = useState('');
   const [newNoteImportant, setNewNoteImportant] = useState('');
   const [showStatus, setShowStatus] = useState('all');
+  const [selectedID, setSelectedID] = useState('');
+  const [content, setContent] = useState('');
+  const [important, setImportant] = useState('--Select--');
 
   // get the data
   useEffect(() => {
     setNotes(props.notes);
   }, []);
+
+  useEffect(() => {
+    const noteObject = notes.find(note => note.id == selectedID);
+    if (noteObject) {
+      setContent(noteObject.content);
+      setImportant(noteObject.important);
+    }
+  }, [selectedID, notes]);
 
   // create a reference for the first input text box
   const newNoteContentRef = useRef(null);
@@ -30,13 +41,30 @@ function App(props) {
     
     // create a new object
     let noteObject = {
-      id: notes.length + 1,
-      content: newNoteContent,
-      important: newNoteImportant==='true',
+      id: selectedID,
+      content: content,
+      important: important==='true',
     }
 
     // add the new object to the notes state
-    setNotes(notes.concat(noteObject));
+    // setNotes(notes.concat(noteObject));
+
+    // setNotes([noteObject, ...notes]);
+    // let refObject = notes.find(note => note.id == selectedID);
+    // refObject.content = content;
+    // refObject.important = important;
+
+    let changeNotes = [...notes];
+
+    for (var index = 0; index < changeNotes.length; index++){
+      if (changeNotes[index].id == selectedID) {
+        break;
+      }
+    }
+
+    changeNotes[index] = noteObject;
+
+    setNotes([...changeNotes]);
 
     // console.log(noteObject);
 
@@ -99,9 +127,18 @@ function App(props) {
 
       {/* add a simple form for adding notes */}
       <form onSubmit={addNote}>
+        <select onChange={(event) => setSelectedID(event.target.value)} value={selectedID}>
+          <option>Select an ID</option>
+          {
+            notes.map(note => (
+              <option key={note.id}>{note.id}</option>
+            ))
+          }
+        </select>
+        <br /><br />
         <input
-          value={newNoteContent}
-          onChange={handleNoteChange}
+          value={content}
+          onChange={(event) => setContent(event.target.value)}
           placeholder='type a note...' 
           ref={newNoteContentRef}
           /> <br /><br />
@@ -113,14 +150,14 @@ function App(props) {
         <label form='dropdownNoteImportant'>Is Important: </label>
         <select
           id='dropdownNoteImportant'
-          onChange={handleSelectChange}
-          value={newNoteImportant}>
+          onChange={(event) => setImportant(event.target.value)}
+          value={important}>
           <option>--Select--</option>
           <option>true</option>
           <option>false</option>
         </select>
         <br /><br />
-        <button type='submit'>Add New Note</button>
+        <button type='submit'>Update Note</button>
       </form>
     </div>
   )
