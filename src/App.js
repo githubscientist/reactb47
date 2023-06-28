@@ -3,11 +3,31 @@ import { createStore } from 'redux';
 
 // define the reducer
 const noteReducer = (state = [], action) => {
-    if (action.type === 'NEW_NOTE') {
-        state.push(action.payload);
-        return state;
+    switch (action.type) {
+        case 'NEW_NOTE':
+            // return state.concat(action.payload);
+            return [...state, action.payload];
+        case 'TOGGLE_IMPORTANCE':
+            // find the id to toggle the importance
+            // fetch the action payload id to update the importance
+            const id = action.payload.id;
+
+            // find the object to toggle
+            const noteToChange = state.find(note => note.id === id);
+
+            // toggle the importance field in noteToChange object
+            const changedNote = {
+                ...noteToChange,
+                important: !noteToChange.important
+            }
+
+            return state.map(note => 
+                note.id === id ? changedNote : note
+            )
+
+        default:
+            return state;
     }
-    return state;
 }
 
 // create a store
@@ -28,6 +48,20 @@ store.dispatch({
     payload: {
         content: 'state changes are made with actions',
         important: false,
+        id: 2
+    }
+});
+
+store.dispatch({
+    type: 'TOGGLE_IMPORTANCE',
+    payload: {
+        id: 1
+    }
+});
+
+store.dispatch({
+    type: 'TOGGLE_IMPORTANCE',
+    payload: {
         id: 2
     }
 });
