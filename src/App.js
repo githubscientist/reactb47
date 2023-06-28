@@ -1,19 +1,50 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { createStore } from 'redux';
+
+// define the reducer
+const noteReducer = (state = [], action) => {
+    if (action.type === 'NEW_NOTE') {
+        state.push(action.payload);
+        return state;
+    }
+    return state;
+}
+
+// create a store
+const store = createStore(noteReducer);
+
+// dispatch actions
+store.dispatch({
+    type: 'NEW_NOTE',
+    payload: {
+        content: 'the app state is in redux store',
+        important: true,
+        id: 1
+    }
+});
+
+store.dispatch({
+    type: 'NEW_NOTE',
+    payload: {
+        content: 'state changes are made with actions',
+        important: false,
+        id: 2
+    }
+});
 
 const App = () => {
-  const dispatch = useDispatch();
-  const counter = useSelector(state => state);
 
     return (
         <div>
-            <div>
-                {counter}
-            </div>
-
-            <button onClick={e => dispatch({ type: 'INCREMENT' })}>plus</button>
-            <button onClick={e => dispatch({ type: 'DECREMENT' })}>minus</button>
-            <button onClick={e => dispatch({ type: 'ZERO' })}>zero</button>
+            <h1>Notes</h1>
+            <ul>
+                {
+                    store.getState().map(note =>
+                        <li key={note.id}>
+                            {note.content} <strong>{note.important ? 'important' : ''}</strong>
+                        </li>)
+                }
+            </ul>
         </div>
     )
 }
