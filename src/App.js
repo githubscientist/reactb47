@@ -6,26 +6,25 @@ const App = () => {
     const state = useSelector(state => state);
     const dispatch = useDispatch();
 
+    const updateVote = (id) => {
+        dispatch({
+            type: 'INCR_VOTE',
+            payload: {
+                id
+            }
+        });
+    };
+
     return (
         <div>
-            <div>
-                <button onClick={() => dispatch({type: 'GOOD'})}>good</button>
-                <button onClick={() => dispatch({ type: 'OK'})}>ok</button>
-                <button onClick={() => dispatch({type: 'BAD'})}>bad</button>
-                <button onClick={() => dispatch({type: 'RESET'})}>reset stats</button>
-            </div>
-
-            <div>
-                good { state.good }
-            </div>
-
-            <div>
-                ok { state.ok }
-            </div>
-
-            <div>
-                bad { state.bad }
-            </div>
+            {
+                state.map((item, index) => (
+                    <div key={index}>
+                        {item.content}<br />
+                        has {item.votes} <button onClick={() => updateVote(item.id)}>vote</button>
+                    </div>
+                ))
+            }
         </div>
     )
 }
