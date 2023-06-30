@@ -39,7 +39,13 @@ const anecdoteReducer = (state = initialState, action) => {
             };
 
             return state.map(anecdote => anecdote.id == id ? changedAnecdote : anecdote);
-
+        
+        case 'NEW_VOTE':
+            return [...state, action.payload];
+        
+        case 'DEL_VOTE':
+            const delid = action.payload.id;
+            return state.filter(item => item.id != delid);
 
         default:
             return state;
