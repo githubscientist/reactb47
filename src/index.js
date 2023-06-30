@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { createStore } from 'redux';
-import noteReducer from './reducers/noteReducer';
+import unicafeReducer from './reducers/unicafeReducer';
 import { Provider } from 'react-redux';
 
 // create a store
-const store = createStore(noteReducer);
+// step: 3 create a store
+const store = createStore(unicafeReducer);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store={store}>
